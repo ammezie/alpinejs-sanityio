@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alpine.js and Sanity.io</title>
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script defer src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js"></script>
+</head>
+<body>
+  <nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0 bg-indigo-900"
+    x-data="{ isOpen: false }" @keydown.escape="isOpen = false">
+  
+    <!--Logo -->
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+      <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+        <span class="text-2xl pl-2"><i class="em em-grinning"></i> ecodata Movies</span>
+      </a>
+    </div>
+  
+    <!--Toggle button -->
+    <button @click="isOpen = !isOpen" type="button"
+      class="block lg:hidden px-2 text-gray-500 hover:text-white focus:outline-none focus:text-white"
+      :class="{ 'transition transform-180': isOpen }">
+      <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
+          d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
+        <path x-show="!isOpen" fill-rule="evenodd"
+          d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" />
+      </svg>
+    </button>
+  
+    <!-- Menu -->
+    <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
+      :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false" x-show.transition="true">
+      <ul class="pt-6 lg:pt-0  lg:flex justify-end flex-1 items-center">
+        <li class="mr-3">
+          <a class="inline-block py-2 px-4 text-white" href="#" @click="isOpen = false">Home
+          </a>
+        </li>
+        <li class="mr-3">
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">Movies
+          </a>
+        </li>
+        <li class="mr-3">
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">About
+          </a>
+        </li>
+        <li class="mr-3">
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">Contact
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="mt-32">
+    <div class="container">
+      <div x-data="init()" x-init="fetch(`https://kipnfrpq.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20'movie'%5D`)
+          .then(response => response.json())
+          .then(response => movies = response.result)" class="p-5 flex flex-wrap justify-center">
+  
+        <template x-for="(movie, index) in Object.values(movies)" :key="index">
+          <div class="p-8">
+            <div>
+              <img x-bind:src="movie.poster.asset._ref.jpg" />
+            </div>
+            <div>
+              <div>
+                <span style="padding-right: 5px">Title:</span><span><b x-text="movie.title"></b></span>
+              </div>
+              <div>
+                <span style="padding-right: 5px">Year:</span><span><b x-text="movie.releaseDate"></b></span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </main>
+
+  <div x-data="{ isOpen: false }">
+    <h1>This is a toggle button</h1>
+  
+    <button x-on:click="{ isOpen = !isOpen }">Toggle</button>
+  
+    <div x-show="isOpen">
+      <h1>Tadah! I am Visible</h1>
+    </div>
+  </div>
+
+  <script>
+    function init() {
+      return {
+        movies: [],
+      }
+    }
+  </script>
+</body>
+</html>
