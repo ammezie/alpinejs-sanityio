@@ -12,6 +12,7 @@ import person from './person'
 import screening from './screening'
 import plotSummary from './plotSummary'
 import plotSummaries from './plotSummaries'
+import trending from './trending'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -32,5 +33,6 @@ export default createSchema({
     plotSummaries,
     castMember,
     crewMember,
+    trending
   ]),
 })
