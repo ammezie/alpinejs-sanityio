@@ -56,39 +56,37 @@
   </nav>
 
   <main class="mt-32">
-    <div class="container">
-      <div x-data="init()" x-init="fetch(`https://kipnfrpq.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20'movie'%5D`)
+    <div class="container mx-auto px-8">
+      <div
+        x-data="init()"
+        x-init="fetch('https://nhksjapu.api.sanity.io/v2021-03-25/data/query/production?query=*%5B_type%20%3D%3D%20%22movie%22%5D%20%7B%20title%2C%20releaseDate%2C%20%22imageUrl%22%3A%20poster.asset-%3Eurl%20%7D')
           .then(response => response.json())
           .then(response => movies = response.result)" class="p-5 flex flex-wrap justify-center">
-  
-        <template x-for="(movie, index) in Object.values(movies)" :key="index">
-          <div class="p-8">
-            <div>
-              <img x-bind:src="movie.poster.asset._ref.jpg" />
-            </div>
-            <div>
+          
+          <div  class="grid grid-cols-1 gap-6 md:grid-cols-4">
+            <template x-for="(movie, index) in movies" :key="index">
               <div>
-                <span style="padding-right: 5px">Title:</span><span><b x-text="movie.title"></b></span>
+                <img x-bind:src="movie.imageUrl" />
+                <div class="mt-2">
+                  <h3 class="text-lg font-semibold" x-text="movie.title"></h3>
+                  <p class="text-sm text-gray-500" x-text="movie.releaseDate"></p>
+                </div>
               </div>
-              <div>
-                <span style="padding-right: 5px">Year:</span><span><b x-text="movie.releaseDate"></b></span>
-              </div>
-            </div>
+            </template>
           </div>
-        </template>
+        </div>
+      </div>
+    </main>
+
+    <div x-data="{ isOpen: false }">
+      <h1>This is a toggle button</h1>
+    
+      <button x-on:click="{ isOpen = !isOpen }">Toggle</button>
+    
+      <div x-show="isOpen">
+        <h1>Tadah! I am Visible</h1>
       </div>
     </div>
-  </main>
-
-  <div x-data="{ isOpen: false }">
-    <h1>This is a toggle button</h1>
-  
-    <button x-on:click="{ isOpen = !isOpen }">Toggle</button>
-  
-    <div x-show="isOpen">
-      <h1>Tadah! I am Visible</h1>
-    </div>
-  </div>
 
   <script>
     function init() {
