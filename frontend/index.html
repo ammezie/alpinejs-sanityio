@@ -6,11 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alpine.js and Sanity.io</title>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <script defer src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js"></script>
+  <script defer src="https://unpkg.com/alpinejs@3.4.2/dist/cdn.min.js"></script>
 </head>
 <body>
-  <nav class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0 bg-indigo-900"
-    x-data="{ isOpen: false }" @keydown.escape="isOpen = false">
+  <nav
+    class="flex items-center justify-between flex-wrap p-6 fixed w-full z-10 top-0 bg-indigo-900"
+    x-data="{ isOpen: false }"
+    @keydown.escape="isOpen = false"
+  >
   
     <!--Logo -->
     <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -20,9 +23,12 @@
     </div>
   
     <!--Toggle button -->
-    <button @click="isOpen = !isOpen" type="button"
+    <button
+      type="button"
+      @click="isOpen = !isOpen"
       class="block lg:hidden px-2 text-gray-500 hover:text-white focus:outline-none focus:text-white"
-      :class="{ 'transition transform-180': isOpen }">
+      :class="{ 'transition transform-180' : isOpen }"
+    >
       <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path x-show="isOpen" fill-rule="evenodd" clip-rule="evenodd"
           d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z" />
@@ -32,24 +38,25 @@
     </button>
   
     <!-- Menu -->
-    <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
-      :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }" @click.away="isOpen = false" x-show.transition="true">
+    <div
+      class="w-full flex-grow lg:flex lg:items-center lg:w-auto"
+      :class="{ 'block shadow-3xl': isOpen, 'hidden': !isOpen }"
+      @click.away="isOpen = false"
+      x-show="isOpen"
+      x-transition
+    >
       <ul class="pt-6 lg:pt-0  lg:flex justify-end flex-1 items-center">
         <li class="mr-3">
-          <a class="inline-block py-2 px-4 text-white" href="#" @click="isOpen = false">Home
-          </a>
+          <a class="inline-block py-2 px-4 text-white" href="#">Home</a>
         </li>
         <li class="mr-3">
-          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">Movies
-          </a>
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#">Movies</a>
         </li>
         <li class="mr-3">
-          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">About
-          </a>
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#">About</a>
         </li>
         <li class="mr-3">
-          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#" @click="isOpen = false">Contact
-          </a>
+          <a class="inline-block text-gray-300 hover:text-gray-200 py-2 px-4" href="#">Contact</a>
         </li>
       </ul>
     </div>
@@ -76,17 +83,23 @@
           </div>
         </div>
       </div>
-    </main>
+  </main>
 
-    <div x-data="{ isOpen: false }">
-      <h1>This is a toggle button</h1>
-    
-      <button x-on:click="{ isOpen = !isOpen }">Toggle</button>
-    
-      <div x-show="isOpen">
-        <h1>Tadah! I am Visible</h1>
-      </div>
+  <div class="container mx-auto p-8" x-data="{ isOpen: false }">
+    <h1>This is a toggle button</h1>
+  
+    <button
+      type="button"
+      class="px-2.5 py-1.5 text-white bg-black rounded"
+      x-on:click="isOpen = !isOpen"
+    >
+      Toggle
+    </button>
+  
+    <div x-show="isOpen">
+      <h1>Tadah! I am Visible</h1>
     </div>
+  </div>
 
   <script>
     function init() {
